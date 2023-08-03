@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors(
+app.options(cors(
     {
         origin: ["https://true-blog-v2.vercel.app", "https://true-blog-v2.vercel.app/auth"],
         methods: ["POST", "GET", "DELETE", "PUT", "PATCH"],
