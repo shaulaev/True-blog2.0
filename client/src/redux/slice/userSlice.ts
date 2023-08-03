@@ -41,8 +41,8 @@ export const authorization = createAsyncThunk(
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin':'*'
                 },
+                credentials: "include",
                 body: JSON.stringify({
                     login: data.login,
                     password: data.password,
