@@ -41,6 +41,7 @@ export const authorization = createAsyncThunk(
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'https://true-blog-v2-api.vercel.app'
                 },
                 credentials: "include",
                 body: JSON.stringify({
