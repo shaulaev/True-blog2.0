@@ -43,7 +43,7 @@ export const authorization = createAsyncThunk(
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': 'https://true-blog-v2-api.vercel.app'
                 },
-                mode: "no-cors"
+                mode: "no-cors",
                 body: JSON.stringify({
                     login: data.login,
                     password: data.password,
