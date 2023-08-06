@@ -12,6 +12,7 @@ app.use(cookieParser())
 app.use(cors(
     {
         origin: ["https://true-blog-v2.vercel.app"],
+        methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTION"]
         credentials: true
     }
 ))
