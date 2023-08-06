@@ -40,10 +40,8 @@ export const authorization = createAsyncThunk(
             const response = await fetch(URL + '/users/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': 'https://true-blog-v2-api.vercel.app'
+                    'Content-Type': 'application/json;charset=utf-8'
                 },
-                credentials: "include",
                 body: JSON.stringify({
                     login: data.login,
                     password: data.password,
