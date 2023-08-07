@@ -37,7 +37,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 app.use((error, req, res, next) => {
     console.error("Ошибка:", error.message);
-    res.status(500).send({'error': error.message});
+    res.status(500).send('Internal Server Error');
 });
 
 const start = async () => {

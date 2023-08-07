@@ -5,16 +5,20 @@ const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 const generateAccessToken = (id, login, role, avatar) => {
-    const payload = {
-        id,
-        login,
-        role,
-        avatar
+    console.log(id, login, role, avatar)
+    try {
+        const payload = {
+            id,
+            login,
+            role,
+            avatar
+        };
+        return jwt.sign(payload, process.env.SECRET_JWT_KEY, {expiresIn: "24h"});
+    } catch (e) {
+        console.error("Ошибка при генерации токена:", e);
+        return null;
     }
-
-    return jwt.sign(payload, process.env.SECRET_JWT_KEY, {expiresIn: "24h"})
-}
-
+};
 module.exports.userController = {
     registration: async (req, res) => {
         try {
@@ -59,6 +63,8 @@ module.exports.userController = {
             }
 
             const token = generateAccessToken(user._id, user.login, user.role, user.avatar);
+            
+            console.log(token)
 
             res.json({token, id: user._id, login: user.login, role: user.role, posts: user.posts, likes: user.likes, comments: user.comments, avatar: user.avatar});
         } catch (e) {
