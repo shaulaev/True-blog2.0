@@ -41,28 +41,29 @@ module.exports.userController = {
     },
 
     login: async (req, res) => {
+    let user;  // выносим объявление переменной user из блока try
+    
         try {
+            const { login, password } = req.body;
 
-            const { login, password } = req.body
-
-            const user = await User.findOne({login}).populate("posts").exec()
+            user = await User.findOne({login}).populate("posts").exec();
 
             if(!user) {
-                return res.status(400).json("Пользователь с таким логином не найден")
+                return res.status(400).json("Пользователь с таким логином не найден");
             }
 
-            const validPassword = bcrypt.compareSync(password, user.password)
+            const validPassword = bcrypt.compareSync(password, user.password);
 
             if(!validPassword) {
-                return res.status(400).json("Неправильный пароль")
+                return res.status(400).json("Неправильный пароль");
             }
 
-            const token = generateAccessToken(user._id, user.login, user.role, user.avatar)
-            //const {login, role, posts, likes, comments, avatar} = user
+            const token = generateAccessToken(user._id, user.login, user.role, user.avatar);
 
-            res.json({token, id: user._id, login: user.login, role: user.role, posts: user.posts, likes: user.likes, comments: user.comments, avatar: user.avatar})
+            res.json({token, id: user._id, login: user.login, role: user.role, posts: user.posts, likes: user.likes, comments: user.comments, avatar: user.avatar});
         } catch (e) {
-            res.status(400).json({message: "Не удалось войти в систему", error: e, data: user})
+            // Добавляем вывод переменной user, чтобы увидеть её состояние в момент ошибки
+            res.status(400).json({message: "Не удалось войти в систему", error: e, data: user});
         }
     },
 
